@@ -39,13 +39,13 @@ class ProductImage(TimeStampMixin):
         verbose_name_plural = _("Product Images")
 
     def __str__(self):
-        return self.product.name
+        return self.product.title
 
 
 class ProductVariant(TimeStampMixin):
     variant_title = models.CharField(max_length=255)
     variant = models.ForeignKey(Variant, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product_variant')
 
     class Meta:
         verbose_name = _("Product Variant")
@@ -64,7 +64,7 @@ class ProductVariantPrice(TimeStampMixin):
                                               related_name='product_variant_three')
     price = models.FloatField()
     stock = models.FloatField()
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product_variant_price_Product')
 
     class Meta:
         verbose_name = _("Product Variant Price")
@@ -72,6 +72,6 @@ class ProductVariantPrice(TimeStampMixin):
 
     def __str__(self):
         try:
-            return str(f'{self.product.name}')
+            return str(f'{self.product.title}')
         except:
             return 'None'
