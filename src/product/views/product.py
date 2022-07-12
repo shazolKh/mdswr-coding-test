@@ -1,6 +1,7 @@
 from django.views import generic
 
-from product.models import Variant
+# from product.models import Variant
+from ..models import Variant, Product
 
 
 class CreateProductView(generic.TemplateView):
@@ -12,3 +13,11 @@ class CreateProductView(generic.TemplateView):
         context['product'] = True
         context['variants'] = list(variants.all())
         return context
+
+
+class ProductsListView(generic.ListView):
+    model = Product
+    template_name = 'products/list.html'
+    context_object_name = 'products'
+    paginate_by = 2
+    queryset = Product.objects.all()
