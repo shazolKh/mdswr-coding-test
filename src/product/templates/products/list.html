@@ -16,9 +16,15 @@
                     <input type="text" name="title" placeholder="Product Title" class="form-control">
                 </div>
                 <div class="col-md-2">
-                    <select name="variant" id="" class="form-control">
+                    <select name="drop_variant" id="drop_variant" class="form-control">
                         <option selected disabled>--Select A Variant--</option>
-
+                        {% for variant in variants %}
+                            <optgroup label="{{ variant.title }}">
+                                {% for v in variant.variant_product.all %}
+                                    <option value="{{ v.variant_title }}">{{ v.variant_title }}</option>
+                                {% endfor %}
+                            </optgroup>
+                        {% endfor %}
                     </select>
                 </div>
 
@@ -149,4 +155,13 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block script %}
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#drop_variant').select2();
+        });
+    </script>
 {% endblock %}

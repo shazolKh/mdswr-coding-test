@@ -44,7 +44,7 @@ class ProductImage(TimeStampMixin):
 
 class ProductVariant(TimeStampMixin):
     variant_title = models.CharField(max_length=255)
-    variant = models.ForeignKey(Variant, on_delete=models.CASCADE)
+    variant = models.ForeignKey(Variant, on_delete=models.CASCADE, related_name='variant_product')
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product_variant')
 
     class Meta:
