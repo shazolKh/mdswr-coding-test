@@ -44,7 +44,12 @@ class ProductImage(TimeStampMixin):
 
 class ProductVariant(TimeStampMixin):
     variant_title = models.CharField(max_length=255)
-    variant = models.ForeignKey(Variant, on_delete=models.CASCADE, related_name='variant_product')
+    variant = models.ForeignKey(
+        Variant,
+        on_delete=models.CASCADE,
+        related_name='variant_product',
+        related_query_name='variant_product'
+    )
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product_variant')
 
     class Meta:
@@ -64,7 +69,12 @@ class ProductVariantPrice(TimeStampMixin):
                                               related_name='product_variant_three')
     price = models.FloatField()
     stock = models.FloatField()
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product_variant_price_Product')
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name='product_variant_price_Product',
+        related_query_name='product_variant_price'
+    )
 
     class Meta:
         verbose_name = _("Product Variant Price")
